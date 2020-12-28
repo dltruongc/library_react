@@ -1,9 +1,6 @@
 import {
   AiFillFacebook,
   AiFillGithub,
-  AiFillGoogleCircle,
-  AiFillGooglePlusCircle,
-  AiFillLinkedin,
   AiFillMail,
   AiFillTwitterCircle,
 } from 'react-icons/ai';
