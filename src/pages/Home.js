@@ -8,7 +8,7 @@ import { NetworkContext } from '../hooks/NetworkProvider';
 import { CartContext } from '../hooks/CartProvider';
 
 export default function Home() {
-  const { handleShow, setLoading } = useContext(NetworkContext);
+  const { showNotify, setLoading } = useContext(NetworkContext);
   const { addItem } = useContext(CartContext);
 
   const [books, setBooks] = useState([]);
@@ -24,7 +24,7 @@ export default function Home() {
     .then(response => {
       setBooks(response.data);
     }).catch((error) => {
-      handleShow('Kết nối thất bại');
+      showNotify('Kết nối thất bại');
     }).finally(() => { setLoading(false); });
   }
 

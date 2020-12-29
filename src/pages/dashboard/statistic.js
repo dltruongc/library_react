@@ -1,5 +1,5 @@
 import {useState, useContext, useEffect } from 'react';
-import { remote } from '../../base/remote';
+import { remote, BASE_URL } from '../../base/remote';
 import { Table } from "react-bootstrap";
 import axios from 'axios';
 import { NetworkContext } from '../../hooks/NetworkProvider';
@@ -37,30 +37,40 @@ export default function StatisticDashboard () {
     );
   }, []);
 
-  if (books[0].length === 0 && books[1].length === 0) {
+  const cellImgStyle = { maxHeight: 120, display: 'inline-block' };
+
+  const RenderTable = ({ items, title}) => {
+    console.log({items, title})
     return <div>
-      <h5>Sách được mượn nhiều nhất: Chưa có dữ liệu</h5>
-      <h5>Sách được yêu cầu nhưng không thẻ cho mượn: Chưa có dữ liệu</h5>
-    </div>;
-  } else {
-    return <div>
-    <div>
-      <h3>wSách được mượn nhiều nhất: </h3>
+      <h3>{title}: </h3>
       <Table>
         <thead>
           <tr>
-            {Object.keys(books[0]).map(k => <th>{keyMapping[k]}</th>)}
+            {Object.keys(items[0]).map(k => <th>{keyMapping[k]}</th>)}
           </tr>
         </thead>
         <tbody>
-          {books[0].length ? books[0].map(book => {
+          {items.length ? items.map(item => {
             return <tr>
-              {Object.entries(book).map(el => el[1])}
+              {Object.entries(item).map(el => {
+                if (el[0] === 'S_HINHANH') {
+                  return <td><img style={cellImgStyle} src={BASE_URL + el[1] } alt=''/></td>
+                }
+                return <td>{el[1]}</td>
+              })}
             </tr>
           }): null }
         </tbody>
       </Table>
     </div>
-  </div>;
   }
+
+  return <div>
+    { books[0].length !== 0 
+      ? <RenderTable items={books[0]} title='Sách được mượn nhiều nhất'/>
+      : <h3>Sách được mượn nhiều nhất: Chưa có dữ liệu</h3>}
+    { books[1].length !== 0 
+      ? <RenderTable items={books[1]} title='Sách được yêu cầu nhưng không thể cho mượn'/>
+      : <h3>Sách được yêu cầu nhưng không thể cho mượn: Chưa có dữ liệu</h3> }
+  </div>;
 }

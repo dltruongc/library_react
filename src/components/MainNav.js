@@ -11,7 +11,6 @@ export default function MainNav () {
   const { itemCount } = useContext(CartContext);
 
   const { auth, logout } = useContext(AuthContext);
-
   return <div >
     <Navbar bg="dark" expanded={true} expand={'lg'} fixed={'top'} variant="dark">
       <Navbar.Brand href="/">
@@ -26,24 +25,30 @@ export default function MainNav () {
       </Navbar.Brand>
       <Navbar.Collapse className="justify-content-end">
         <Nav >
+          { auth.token && auth.isAdmin
+            ? <Nav.Link href='/dashboard' className='rounded border border-primary'>Dashboard</Nav.Link>
+            : null
+          }
           <Nav.Link href='/'>Home</Nav.Link>
           <Nav.Link href='/books'>Books</Nav.Link>
           <Nav.Link href='/type'>Type</Nav.Link>
           <Nav.Link href='/category'>Category</Nav.Link>
           <Nav.Link href='/checkout'>Checkout <Badge variant='primary'>{itemCount || null}</Badge></Nav.Link>
           <Nav.Link href='/about'>About</Nav.Link>
-          { auth.name && auth.token ?
+
+          { auth.avatar && auth.token ?
             <Nav.Item>
               <Avatar avatar={auth.avatar} />
             </Nav.Item> 
-            : <Nav.Link href='/login'>Login</Nav.Link> 
+            : <Nav.Link href='/login'>Login</Nav.Link>
           }
-          { auth.name && auth.token ?
+          { auth.avatar && auth.token ?
             <Nav.Item className='align-center justify-content-center pl-2'>
               <Button onClick={logout} variant='outline-primary' block>Logout</Button>
             </Nav.Item> 
-            : <Nav.Link href='/signup'>Signup</Nav.Link>
+            : <><Nav.Link href='/signup'>Signup</Nav.Link><Nav.Link href='/admin/login'>Admin</Nav.Link> </>
           }
+
         </Nav>
       </Navbar.Collapse>
     </Navbar>

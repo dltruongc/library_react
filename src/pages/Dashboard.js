@@ -27,10 +27,6 @@ export default function Dashboard() {
         <Tab eventKey="home" title="Tổng quan">
           <>
             <StatisticDashboard />
-            <div className='w-1140 min-h-50'>
-              <div>Sách được yêu cầu nhiều nhất: XXX</div>
-              <div>Sách được yêu cầu nhưng không thể cho mượn: ...xyz</div>
-            </div>  
           </>
         </Tab>
         <Tab eventKey="book" title="Sách">

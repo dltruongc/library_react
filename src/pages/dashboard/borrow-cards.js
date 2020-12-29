@@ -9,8 +9,8 @@ const bookKeysMapping = {
   "TDG_MA": 'Độc giả',
   "PM_NGAYMUON": 'Ngày y.c mượn',
   "DS_MA": 'Đầu sách',
-  "DXN_MA": 'Phiếu cho mượn',
-  "PT_MA": 'Phiếu trả',
+  "CN_MA": 'Quản thư',
+  "DXN_MA": 'Mã xác nhận',
   "CTM_NGAYMUON": 'Ngày cho mượn',
   "CTM_NGAYTRA": 'Hạn trả'
 };
@@ -45,14 +45,14 @@ export default function BorrowCardDashboard() {
 
   const ItemsMapping = () => {
     return items.map((item, idx) => {
-      if (items[idx + 1] && items[idx].PM_STT == items[idx+1].PM_STT)  {
-        return Object.entries(item).map(el => {
-          return <td>{el[1]}</td>;
-        });
-      }
+      // if (items[idx + 1] && items[idx].PM_STT === items[idx+1].PM_STT)  {
+      //   return Object.entries(item).map(el => {
+      //     return <td>{el[1]}</td>;
+      //   });
+      // }
       return <tr key={idx}>
-        {Object.entries(item).map(el => {
-          return <td>{el[1]}</td>;
+        {Object.values(item).map(el => {
+          return <td>{el}</td>;
         })}
       </tr>
     })
