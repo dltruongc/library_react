@@ -18,6 +18,7 @@ export default function StatisticDashboard () {
   const [books, setBooks] = useState([[{}] , [{}]]);
   const { onRequest,onMultiRequests } = useContext(NetworkContext);
   const { auth } = useContext(AuthContext);
+
   useEffect(() => {
     const config = {
       headers: {'Authorization': `Bearer ${auth.token}`}
