@@ -4,12 +4,14 @@ import React, {useContext, useEffect, useState} from "react";
 import {BASE_URL, remote} from "../base/remote";
 import {Link} from "react-router-dom";
 import { Button } from 'react-bootstrap';
-import { NetworkContext } from "../hooks/NetwokProvider";
+import { NetworkContext } from "../hooks/NetworkProvider";
+import { CartContext } from '../hooks/CartProvider';
 
 export default function Item ({ match }) {
 
   const [book, setBook] = useState();
   const { setLoading, handleShow, onRequest } = useContext(NetworkContext);
+  const { addItem } = useContext(CartContext);
 
   useEffect(() => {
     setLoading(true);
@@ -31,7 +33,7 @@ export default function Item ({ match }) {
           </div>
           {book?.S_MOTA}
           <div className='card-buttons'>
-            <Button variant='primary'>Borrow</Button>
+            <Button variant='primary' onClick={() => addItem(book)}>Add</Button>
           </div>
         </div>
       </div>

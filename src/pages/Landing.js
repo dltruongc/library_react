@@ -9,8 +9,8 @@ export default function Landing() {
       <div className='w-1140'>
         <div className='hero-box'>
           <h1>Welcome to IT Library. What do you gonna do?</h1>
-          <Button variant='primary'>Borrow book</Button>
-          <Button variant='outline-primary' href='#'>Read more</Button>  
+          <Button variant='primary' href='/books'>Borrow book</Button>
+          <Button variant='outline-primary' href='/about'>Read more</Button>  
         </div>
       </div>
     </header>

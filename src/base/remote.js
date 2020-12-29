@@ -8,10 +8,9 @@ export const remote = axios.create({
   headers: {
     'Authorization': 'Bearer ' + AUTH_TOKEN
   },
-  timeout: 3000,
+  timeout: 5000,
   timeoutErrorMessage: 'Kết nối thất bại'
 });
-
 
 export function setToken(token) { AUTH_TOKEN = token; }
 

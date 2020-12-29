@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { css } from "@emotion/core";
-import {RingLoader } from "react-spinners";
-
+import { RingLoader } from "react-spinners";
+import { Redirect } from 'react-router-dom';
+import { AuthContext } from './AuthProvider';
+import axios from 'axios';
 const override = css`
   display: block;
   margin: 0 auto;
@@ -13,16 +15,19 @@ export const NetworkContext = React.createContext({
   setLoading: () => {}, 
   handleShow: () => {}, 
   closeNotify: () => {},
-  onRequest: (promise, onSuccess = (s) => {}, onError = (e) => {}) => {}
+  onRequest: (promise, onSuccess = (s) => {}, onError = (e) => {}) => {},
+  onMultiRequests: (promises, onSuccess = (s) => {}, onError = (e) => {}) => {}
 });
 
 export default function NetworkProvider ({ children }) {
   const [error, setError]       = useState(null);
   const [loading, setLoading]   = useState(false);
+  const [expired, setExpired]   = useState(false);
+  const { logout }              = useContext(AuthContext);
 
   const showNotify = (error) => { setError(error)};
   const closeNotify = () => { setError(null)};
-  
+
   const onRequest = (promise, onData = (s) => {}, onError = (e) => {}) => {
     setLoading(true);
     promise
@@ -30,11 +35,41 @@ export default function NetworkProvider ({ children }) {
         if (res.status === 204) {
           showNotify('Không có dữ liệu');
         }
+        console.log(res);
         onData(res.data);
       })
       .catch(error => {
-        showNotify(error.message);
-        onError(error);
+        if (error?.response) {
+          if (error?.response.data.expiredAt) {
+            showNotify('Phiên đăng nhập đã hết hạn');
+            logout();
+          }
+          if(error.response.data.message) {
+            showNotify(error.response.data.message);
+          }
+          onError(error);
+        }
+      })
+      .finally(() => {setLoading(false)});
+  };
+  
+  const onMultiRequests = (promises, onData = (s) => {}, onErrors = (e) => {}) => {
+    let errorsMsg = [];
+    setLoading(true);
+    promises
+      .then(axios.spread((...responses) => {
+        onData(responses.map(res => res.data));
+      }))
+      .catch(errors => {
+        if (errors && errors.length) {
+          errors.forEach(error => {
+            if(error.response.data.message) {
+              errorsMsg.push(error.response.data.message);
+            }
+          })
+          showNotify(errorsMsg.response.data.message);
+        }
+        onErrors(errors);
       })
       .finally(() => {setLoading(false)});
   };
@@ -67,7 +102,7 @@ export default function NetworkProvider ({ children }) {
     }
   }
 
-  return <NetworkContext.Provider value={{ setLoading, showNotify, closeNotify, onRequest }}>
+  return <NetworkContext.Provider value={{ setLoading, showNotify, closeNotify, onRequest, onMultiRequests }}>
     <div>
       { loading 
         ? <div className="loader">
@@ -81,6 +116,7 @@ export default function NetworkProvider ({ children }) {
         : null
       }
       {showModal()}
+      { expired ? <Redirect to='/login' /> : null }
       {children}
     </div>
   </NetworkContext.Provider>;

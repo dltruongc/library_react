@@ -264,8 +264,6 @@ footer {
   margin-left: 0 !important;
 }
 
-.btn { color: var(--light)}
-
 .btn-primary,
 .btn-primary:focus {
   background-color: var(--light);
@@ -276,6 +274,7 @@ footer {
 .btn-outline-primary,
 .btn-outline-primary:focus {
   border-color: var(--light);
+  color: var(--light);
 }
 
 .btn-outline-primary:hover,
@@ -393,4 +392,52 @@ footer {
   .Header .hero-box .btn:last-child {
     margin-left: 0;
   }
+}
+
+
+.h-100vh {
+  height: 100vh;
+}
+
+.bottom-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.mh-200 {
+  max-height: 200px;
+}
+
+.w-200 {
+  width: 200px;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.custom-img-overlay {
+  width: 100%;
+  height: 60%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+  color: var(--white);
+}
+
+.avatar {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.min-h-50 {
+  min-height: 50vh;
 }

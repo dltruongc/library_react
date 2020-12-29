@@ -4,10 +4,12 @@ import {useContext, useEffect, useState} from "react";
 import { remote, BASE_URL } from '../base/remote';
 import { Link  } from "react-router-dom";
 import { Button, Alert } from 'react-bootstrap';
-import { NetworkContext } from '../hooks/NetwokProvider';
+import { NetworkContext } from '../hooks/NetworkProvider';
+import { CartContext } from '../hooks/CartProvider';
 
 export default function Home() {
   const { handleShow, setLoading } = useContext(NetworkContext);
+  const { addItem } = useContext(CartContext);
 
   const [books, setBooks] = useState([]);
 
@@ -27,7 +29,7 @@ export default function Home() {
   }
 
   const Cards = books.map((item) => (
-    <div key={item.S_MA} className='col-3 mt-3 pb-2'>
+    <div key={item.S_MA} className='col-md-3 mt-3 pb-2'>
       <div className='card'>
         <div className='card-image'>
           <img src={BASE_URL +item?.S_HINHANH} alt={item?.S_TIEUDE} />
@@ -38,7 +40,7 @@ export default function Home() {
           </div>
           {item.description}
           <div className='card-buttons'>
-            <Button variant='primary'>Borrow</Button>
+            <Button variant='primary' onClick={() => addItem(item)}>Add</Button>
             <Link to={`/books/${item.S_MA}`}>
               <Button variant='outline-primary'>
                 Details
