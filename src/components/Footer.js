@@ -10,7 +10,7 @@ export default function Footer() {
     <footer>
       <div className='w-1140'>
         <div className='row'>
-          <div className='col-lg-5 mb-lg-0 mb-sm-4 mb-2'>
+          <div className='col-lg-6 mb-lg-0 mb-sm-4 mb-2'>
             <h3>Tổng quan</h3>
             <h4>Đỗ Lam Trường</h4>
             <p>Sinh viên Đại học Cần Thơ</p>
@@ -28,7 +28,7 @@ export default function Footer() {
             <p>Giảng viên hướng dẫn: TS. Trương Quốc Định</p>
             <p>Niên khoá: Học kì 2 - 2020</p>
           </div>
-          <div className='col-lg-4 col-sm-6'>
+          <div className='col-lg-3 col-sm-6'>
             <div>
               <h3>Liên kết</h3>
               <div className="d-flex">
