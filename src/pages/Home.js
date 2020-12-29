@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   const Cards = books.map((item) => (
-    <div key={item.S_MA} className='col-md-3 mt-3 pb-2'>
+    <div key={item.S_MA} className='col-lg-3 col-md-4 col-sm-6 mt-3 pb-2'>
       <div className='card'>
         <div className='card-image'>
           <img src={BASE_URL +item?.S_HINHANH} alt={item?.S_TIEUDE} />

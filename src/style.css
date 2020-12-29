@@ -387,10 +387,13 @@ footer {
 @media (max-width: 700px) {
   .Header .hero-box .btn {
     text-align: center;
-    display: block;
-  }
-  .Header .hero-box .btn:last-child {
-    margin-left: 0;
+    /*display: block;*/
+    font-size: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
   }
 }
 
